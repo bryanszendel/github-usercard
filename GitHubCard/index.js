@@ -3,12 +3,18 @@
            https://api.github.com/users/<your name>
 */
 
+
+
 axios.get(`https://api.github.com/users/bryanszendel`)
 .then(data => {
-  console.log('DATA ==>', data)
+    console.log('DATA ==>', data.data)
+    const cards = document.querySelector('.cards')
+    const newCard = createCard(data.data)
+    console.log(cards.nodeType)
+    cards.appendChild(newCard)  
 })
 .catch(error => {
-  console.log('ERROR', error)
+  console.log('You are experiencing a severe error...', error)
 })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -53,6 +59,50 @@ const followersArray = [];
 </div>
 
 */
+
+function createCard(object) {
+  const card = document.createElement('div')
+  const image = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const githubURL = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  // styles
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  username.classList.add('username')
+  
+  // content
+  image.src = object.avatar_url
+  name.textContent = object.name
+  username.textContent = object.login
+  location.textContent = `Location: ${object.location}`
+  profile.textContent = `Profile: ${githubURL}`
+  githubURL.textContent = object.html_url
+  followers.textContent = `Followers: ${object.followers}`
+  following.textContent = `Following: ${object.following}`
+  bio.textContent = `Bio: ${object.bio}`
+
+  card.appendChild(image)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  profile.appendChild(githubURL)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+
+  return card
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
