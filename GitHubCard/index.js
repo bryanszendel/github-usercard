@@ -3,9 +3,9 @@
            https://api.github.com/users/<your name>
 */
 
+let user = 'bryanszendel'
 
-
-axios.get(`https://api.github.com/users/bryanszendel`)
+axios.get(`https://api.github.com/users/${user}`)
 .then(data => {
     console.log('DATA ==>', data.data)
     const cards = document.querySelector('.cards')
@@ -84,7 +84,8 @@ function createCard(object) {
   name.textContent = object.name
   username.textContent = object.login
   location.textContent = `Location: ${object.location}`
-  profile.textContent = `Profile: ${githubURL}`
+  profile.textContent = `Profile: `
+  githubURL.href = object.html_url
   githubURL.textContent = object.html_url
   followers.textContent = `Followers: ${object.followers}`
   following.textContent = `Following: ${object.following}`
